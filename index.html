@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSE TRADE X AI - Invest In Forex & Indian Market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gradient {
+            background-image: linear-gradient(to right, #10b981 0%, #2563eb 51%, #10b981 100%);
+            background-size: 200% auto;
+            transition: 0.5s;
+        }
+        .btn-gradient:hover {
+            background-position: right center;
+        }
+        .btn-secondary {
+            background-image: linear-gradient(to right, #4f46e5 0%, #db2777 51%, #4f46e5 100%);
+            background-size: 200% auto;
+            transition: 0.5s;
+        }
+        .btn-secondary:hover {
+             background-position: right center;
+        }
+        .form-input-focus:focus {
+             border-color: transparent;
+             box-shadow: 0 0 0 2px #10b981, 0 0 0 4px rgba(37, 99, 235, 0.5);
+        }
+        .modal-enter { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-leave { animation: fadeOut 0.2s ease-in forwards; }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.98); } }
+        .floating { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translatey(0px); } 50% { transform: translatey(-20px); } 100% { transform: translatey(0px); } }
+        .page-enter { animation: pageFadeIn 0.8s ease-out forwards; }
+        @keyframes pageFadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .card-enter { animation: cardFadeIn 0.5s ease-out backwards; }
+        @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* AI Background */
+        .ai-background {
+            background-color: #020617;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0),
+                radial-gradient(circle at 10px 10px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ai-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            animation: pulse 5s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.5; } }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12.5px; /* Adjust for dot size and border */
+            top: 26px; /* Start below the dot */
+            bottom: 0;
+            width: 3px;
+            background-color: #374151; /* gray-700 */
+        }
+         .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 0px; 
+            top: 0;
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background-color: #1d4ed8; /* blue-700 */
+            border: 5px solid #111827; /* gray-900 */
+            z-index: 10;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <div id="mainPage">
+        <!-- Header -->
+        <header class="bg-white/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-40 border-b border-gray-200/50 transition-shadow duration-300" id="header">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex-shrink-0">
+                        <a href="#" class="flex items-center space-x-3">
+                            <svg class="h-10 w-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#db2777;stop-opacity:1" /><stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" /></linearGradient></defs><path fill="url(#logoGradient)" d="M18.4,7.4C17.9,6.9,17,6.2,15.6,6c-1-0.1-2.1,0.2-3.1,0.9c-2,1.3-3.4,3.5-4.5,5.6c-0.4,0.7-0.7,1.4-1.2,1.9 c-0.4,0.5-0.9,0.7-1.4,0.8c-0.5,0.1-1.1-0.1-1.6-0.5C2.5,13.5,2.1,12,2,11.3c2.2-0.2,4.2-1.2,5.7-2.9c0.9-1,1.5-2.2,2-3.4 c0.2-0.6,0.5-1.1,1.1-1.4c0.7-0.4,1.6-0.3,2.3,0.2c0.7,0.5,1.1,1.2,1.2,2.1c0.2,1.4-0.5,2.8-1.5,4c-0.3,0.4-0.6,0.8-1,1.1 c0.9,0.5,1.9,0.5,2.9,0.2c1.4-0.4,2.6-1.4,3.4-2.5C20.2,9.6,20,8,19.3,7.3C18.9,6.9,18.4,7.4,18.4,7.4z M13,18.5 c-0.1-0.1-0.2-0.2-0.3-0.3c-1.1-1.6-1.6-3.4-1.9-5.3c0.6-0.5,1.3-0.8,2.1-0.9c1.2-0.1,2.4,0.4,3.3,1.3c0.9,0.9,1.3,2.1,1.2,3.3 c-0.1,1.2-0.8,2.3-1.8,3c-0.2,0.1-0.4,0.3-0.6,0.4c0.3,0.9,0.3,1.8-0.1,2.6c-0.4,0.9-1.2,1.5-2.1,1.7c-0.9,0.2-1.8-0.1-2.5-0.7 C12.4,23.1,12.5,19.9,13,18.5z"/></svg>
+                            <span class="font-extrabold text-xl text-gray-800 tracking-wider">PULSE TRADE X AI</span>
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex items-center space-x-4">
+                        <a href="#features" class="font-semibold text-gray-600 hover:text-blue-500 transition-colors">Features</a>
+                        <a href="#testimonials" class="font-semibold text-gray-600 hover:text-blue-500 transition-colors">Testimonials</a>
+                        <button id="downloadNowBtn" class="text-white font-bold px-6 py-2 rounded-lg shadow-lg btn-gradient">Connect Now</button>
+                    </nav>
+                    <div class="md:hidden">
+                        <button id="mobileMenuBtn" class="text-gray-800 focus:outline-none"><i data-lucide="menu" class="h-7 w-7"></i></button>
+                    </div>
+                </div>
+                <div id="mobileMenu" class="hidden md:hidden pb-4 text-center">
+                    <a href="#features" class="block py-2 font-semibold text-gray-600">Features</a>
+                    <a href="#testimonials" class="block py-2 font-semibold text-gray-600">Testimonials</a>
+                    <button id="downloadNowBtnMobile" class="w-full mt-2 text-white font-bold px-6 py-3 rounded-lg shadow-lg btn-gradient">Connect Now</button>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 flex items-center overflow-hidden" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2f1 100%);">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
+                    <div class="max-w-3xl text-center md:text-left">
+                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight tracking-tighter">
+                            Invest In Forex <br class="hidden sm:block"> and <span class="gradient-text">Indian Market</span>
+                        </h1>
+                        <p class="mt-6 text-lg text-gray-600 max-w-lg mx-auto md:mx-0">
+                            Maximize your returns by trading global currencies and Indian stocks. Whether you're a seasoned investor or just starting out, PULSE TRADE X AI makes it easy to grow your earnings online.
+                        </p>
+                        <div class="mt-10">
+                            <button id="getStartedBtn" class="text-white font-bold text-lg py-4 px-10 rounded-xl shadow-xl btn-gradient transform hover:scale-105 flex items-center mx-auto md:mx-0">
+                                Get Started
+                                <i data-lucide="arrow-right" class="w-6 h-6 ml-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-0 z-0 opacity-40 md:opacity-80">
+                    <div class="absolute top-1/4 left-1/2 w-32 h-32 bg-pink-300/50 rounded-full blur-2xl floating"></div>
+                    <div class="absolute top-1/2 right-1/4 w-48 h-48 bg-blue-300/50 rounded-full blur-2xl floating" style="animation-delay: 2s;"></div>
+                    <div class="absolute bottom-1/4 left-3/4 w-24 h-24 bg-teal-300/50 rounded-full blur-2xl floating" style="animation-delay: 4s;"></div>
+                    <div class="absolute right-[-100px] bottom-[-150px] w-[500px] h-[500px] rounded-full border-[50px] border-blue-400/30"></div>
+                    <div class="absolute right-[0px] bottom-[-100px] w-[400px] h-[400px] rounded-full border-[50px] border-pink-400/30 opacity-70"></div>
+                </div>
+            </section>
+
+            <section id="features" class="py-20 lg:py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900">Unlock Your Trading Potential</h2>
+                        <p class="mt-4 text-lg text-gray-600">Our platform is packed with powerful features designed to give you a competitive edge in the markets.</p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 card-enter">
+                            <div class="bg-blue-100 text-blue-600 rounded-full h-12 w-12 flex items-center justify-center"><i data-lucide="brain-circuit"></i></div>
+                            <h3 class="mt-5 text-xl font-bold text-gray-800">Advanced AI Engine</h3>
+                            <p class="mt-2 text-gray-600">Our core AI analyzes thousands of data points per second to identify high-probability trading opportunities.</p>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 card-enter" style="animation-delay: 0.1s;">
+                            <div class="bg-pink-100 text-pink-600 rounded-full h-12 w-12 flex items-center justify-center"><i data-lucide="globe"></i></div>
+                            <h3 class="mt-5 text-xl font-bold text-gray-800">Multi-Market Access</h3>
+                            <p class="mt-2 text-gray-600">Trade seamlessly across the global Forex market and the vibrant Indian stock market from a single platform.</p>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 card-enter" style="animation-delay: 0.2s;">
+                            <div class="bg-teal-100 text-teal-600 rounded-full h-12 w-12 flex items-center justify-center"><i data-lucide="newspaper"></i></div>
+                            <h3 class="mt-5 text-xl font-bold text-gray-800">Real-time News Analysis</h3>
+                            <p class="mt-2 text-gray-600">Stay ahead of market movements with our AI's ability to interpret and react to breaking financial news instantly.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="testimonials" class="py-20 lg:py-24 bg-gray-50">
+                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900">What Our Traders Say</h2>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                         <div class="bg-white p-8 rounded-2xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300"><div class="flex items-center mb-4"><img src="https://placehold.co/50x50/E2E8F0/4A5568?text=AK" class="w-12 h-12 rounded-full mr-4" alt="Ankit K."><div><p class="font-bold text-gray-800">Ankit K.</p><p class="text-sm text-gray-500">Mumbai, India</p></div></div><p class="text-gray-600">"PULSE TRADE X AI has completely changed my approach to forex. The AI is incredibly accurate, and I've seen consistent profits since I started. Highly recommended!"</p></div>
+                        <div class="bg-white p-8 rounded-2xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300"><div class="flex items-center mb-4"><img src="https://placehold.co/50x50/E2E8F0/4A5568?text=PS" class="w-12 h-12 rounded-full mr-4" alt="Priya S."><div><p class="font-bold text-gray-800">Priya S.</p><p class="text-sm text-gray-500">Bangalore, India</p></div></div><p class="text-gray-600">"As a beginner, I was intimidated by trading. This software made it so easy to get started. The interface is user-friendly, and the results speak for themselves."</p></div>
+                        <div class="bg-white p-8 rounded-2xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300"><div class="flex items-center mb-4"><img src="https://placehold.co/50x50/E2E8F0/4A5568?text=RJ" class="w-12 h-12 rounded-full mr-4" alt="Rajesh J."><div><p class="font-bold text-gray-800">Rajesh J.</p><p class="text-sm text-gray-500">Delhi, India</p></div></div><p class="text-gray-600">"I'm a seasoned trader, and even I am impressed with the bot's performance. It catches opportunities I would have missed. It's a powerful tool for any trader's arsenal."</p></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-gray-800 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+                <p>&copy; 2025 PULSE TRADE X AI. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="thankYouPage" class="hidden page-enter">
+         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold gradient-text">The PULSE TRADE X AI Story</h1>
+            <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">You've just unlocked a new era of trading. Discover the technology that powers your decisions and see what our community has achieved.</p>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white/60 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200/50"><div class="text-5xl font-bold gradient-text" data-target="15730">0</div><p class="mt-2 text-lg font-semibold text-gray-700">Happy Users</p></div>
+                <div class="bg-white/60 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200/50"><div class="text-5xl font-bold gradient-text" data-target="95">0</div><p class="mt-2 text-lg font-semibold text-gray-700">AI Accuracy (%)</p></div>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200/50"><div class="flex items-center text-gray-800 mb-4"><i data-lucide="brain-circuit" class="w-8 h-8 mr-3 text-blue-500"></i><h3 class="text-2xl font-bold">Why AI is Important</h3></div><p class="text-gray-600">AI processes vast amounts of market data faster than any human. It identifies patterns, predicts trends, and executes trades with precision, removing emotional bias and operating 24/7.</p></div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200/50"><div class="flex items-center text-gray-800 mb-4"><i data-lucide="newspaper" class="w-8 h-8 mr-3 text-pink-500"></i><h3 class="text-2xl font-bold">How We Work on News</h3></div><p class="text-gray-600">Our AI constantly scans global news, reports, and social media. It uses NLP to analyze sentiment and predict the impact of breaking events, allowing you to react to market shifts in real-time.</p></div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200/50"><div class="flex items-center text-gray-800 mb-4"><i data-lucide="shield-check" class="w-8 h-8 mr-3 text-teal-500"></i><h3 class="text-2xl font-bold">Key Benefits For You</h3></div><p class="text-gray-600">Benefit from emotion-free, data-driven decisions. Our system works tirelessly, ensuring you never miss an opportunity in either the Forex or Indian markets. It's speed and efficiency, simplified.</p></div>
+            </div>
+             
+            <div id="gemini-feature" class="mt-20 text-left max-w-4xl mx-auto">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900 text-center">Instant Market Analysis</h2>
+                <p class="mt-4 text-lg text-gray-600 text-center">Get AI-powered insights on any market or stock instantly.</p>
+                <div class="mt-8 bg-white p-8 rounded-2xl shadow-lg border border-gray-200/50">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="text" id="marketInput" placeholder="Market ya Stock enter karein (jaise, Nifty 50)" class="flex-grow w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none transition form-input-focus">
+                        <button id="generateAnalysisBtn" class="w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg btn-secondary flex items-center justify-center gap-2">
+                           ✨ AI Analysis Generate Karein
+                        </button>
+                    </div>
+                    <div id="analysisResult" class="mt-6 p-6 bg-gray-50 rounded-lg min-h-[150px] text-gray-600 whitespace-pre-wrap">Aapka AI-powered analysis yahan dikhega...</div>
+                </div>
+            </div>
+
+            <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                 <button id="backToHomeBtn" class="w-full sm:w-auto text-white font-bold text-lg py-3 px-8 rounded-xl shadow-xl btn-gradient transform hover:scale-105">Back to Home</button>
+                 <button id="pulseAiBtn" class="w-full sm:w-auto text-white font-bold text-lg py-3 px-8 rounded-xl shadow-xl btn-secondary transform hover:scale-105">Explore The PULSE AI</button>
+            </div>
+         </div>
+    </div>
+    
+    <div id="howItWorksPage" class="hidden page-enter ai-background">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-white relative z-10 min-h-screen flex flex-col justify-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-center">How The PULSE AI Works</h1>
+            <p class="mt-4 text-lg text-gray-300 max-w-3xl mx-auto text-center">Our system follows a continuous, intelligent three-step cycle to navigate the markets.</p>
+            
+            <div class="max-w-3xl mx-auto mt-16">
+                <div class="relative">
+                    <div class="relative pl-12 pb-12 timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="p-6 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700">
+                            <div class="flex items-center mb-3"><i data-lucide="database" class="w-6 h-6 mr-3 text-blue-400"></i><h3 class="text-xl font-bold">1. Massive Data Collection</h3></div>
+                            <p class="text-gray-300">The AI continuously ingests petabytes of data: real-time market prices, global news feeds, economic reports, and social media sentiment across Forex and Indian markets.</p>
+                        </div>
+                    </div>
+                    <div class="relative pl-12 pb-12 timeline-item">
+                        <div class="timeline-dot"></div>
+                         <div class="p-6 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700">
+                            <div class="flex items-center mb-3"><i data-lucide="brain-circuit" class="w-6 h-6 mr-3 text-pink-400"></i><h3 class="text-xl font-bold">2. Deep Neural Analysis</h3></div>
+                            <p class="text-gray-300">Using advanced neural networks, the system analyzes this data to identify complex patterns, correlations, and predictive indicators that are invisible to the human eye.</p>
+                        </div>
+                    </div>
+                    <div class="relative pl-12 timeline-item">
+                        <div class="timeline-dot"></div>
+                         <div class="p-6 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700">
+                            <div class="flex items-center mb-3"><i data-lucide="zap" class="w-6 h-6 mr-3 text-teal-400"></i><h3 class="text-xl font-bold">3. Signal Generation</h3></div>
+                            <p class="text-gray-300">When a high-probability opportunity is detected, the AI generates a precise trading signal, calculating optimal entry points, stop-loss, and take-profit targets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <button id="backToStoryBtn" class="text-white font-bold text-lg py-3 px-8 rounded-xl shadow-xl btn-gradient transform hover:scale-105">
+                    Back to The Story
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/yourphonenumber" target="_blank" class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-2xl hover:bg-green-600 transition-transform hover:scale-110 z-30 animate-pulse"><svg class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M16.75,13.96C17.08,14.39 17.2,14.68 17.2,15.11C17.2,15.54 17.08,15.82 16.81,16.1C16.53,16.37 15.92,16.63 15.19,16.75C14.45,16.87 13.5,17 12,17C10.13,17 8.46,16.5 7.06,15.55C5.66,14.6 4.65,13.25 4.08,11.63C3.5,10 3.5,8.18 4.08,6.56C4.65,4.95 5.66,3.6 7.06,2.65C8.46,1.7 10.13,1.2 12,1.2C12.43,1.2 12.83,1.23 13.2,1.29C13.58,1.35 13.88,1.43 14.13,1.54C14.38,1.64 14.58,1.78 14.73,1.94C14.88,2.1 15,2.28 15.09,2.48C15.18,2.68 15.25,2.86 15.3,3.03C15.35,3.2 15.38,3.33 15.4,3.43C15.43,3.54 15.45,3.63 15.45,3.7C15.45,3.93 15.38,4.14 15.23,4.31C15.08,4.48 14.89,4.6 14.65,4.66C14.4,4.73 14.18,4.69 14,4.55C13.82,4.41 13.6,4.25 13.35,4.06C13.1,3.87 12.85,3.72 12.6,3.6C12.35,3.48 12.13,3.41 11.93,3.34C11.73,3.27 11.55,3.25 11.4,3.25C11.21,3.25 11.03,3.3 10.88,3.4C10.73,3.5 10.5,3.69 10.2,4C9.9,4.3 9.63,4.68 9.38,5.13C9.13,5.58 8.95,6.06 8.85,6.58C8.75,7.1 8.78,7.55 8.93,7.93C9.08,8.31 9.35,8.63 9.73,8.89C10.11,9.15 10.53,9.32 11,9.4C11.48,9.48 11.93,9.47 12.38,9.38C12.83,9.28 13.23,9.06 13.58,8.73C13.73,8.58 13.88,8.48 14.03,8.43C14.18,8.38 14.34,8.38 14.5,8.43C14.66,8.48 14.8,8.58 14.93,8.73C15.05,8.88 15.13,9.03 15.16,9.18C15.19,9.33 15.18,9.48 15.13,9.63C15.08,9.78 15,9.93 14.88,10.08C14.75,10.23 14.6,10.38 14.43,10.53C14.25,10.68 14.08,10.83 13.93,10.96C13.78,11.08 13.68,11.18 13.63,11.23C13.43,11.43 13.22,11.6 13.02,11.75C12.82,11.9 12.6,12.07 12.38,12.25C12.15,12.43 11.95,12.58 11.78,12.7C11.6,12.83 11.45,12.93 11.33,13C11.2,13.08 11.08,13.13 10.98,13.16C10.88,13.18 10.78,13.2 10.7,13.2C10.5,13.2 10.28,13.13 10.05,13C9.83,12.88 9.5,12.63 9.08,12.25C8.65,11.88 8.26,11.46 7.9,11C7.55,10.54 7.23,10.05 6.95,9.53C6.68,9.01 6.46,8.48 6.3,7.95C6.15,7.41 6.08,6.88 6.08,6.38C6.08,5.88 6.13,5.41 6.23,4.98C6.33,4.55 6.48,4.15 6.68,3.78C6.88,3.41 7.13,3.08 7.43,2.8C7.73,2.53 8.06,2.3 8.43,2.1C8.8,1.9 9.2,1.75 9.63,1.65C10.05,1.55 10.5,1.5 11,1.5C11.5,1.5 12,1.5 12,1.5H12C12,1.5 12,1.5 12,1.5C13.63,1.5 15.1,1.94 16.31,2.83C17.53,3.72 18.45,4.9 18.93,6.38C19.4,7.85 19.4,9.45 18.93,10.93C18.45,12.4 17.53,13.58 16.31,14.46C15.58,15.06 14.75,15.5 13.83,15.78C12.9,16.05 11.93,16.13 11,16C10.5,16 10,16 10,16C10,16 10.05,16.13 10.15,16.38C10.25,16.63 10.38,16.91 10.55,17.23C10.73,17.55 10.93,17.85 11.18,18.13C11.43,18.4 11.7,18.63 12,18.8C12.3,18.98 12.6,19.1 12.9,19.18C13.2,19.25 13.5,19.28 13.8,19.25C14.1,19.23 14.38,19.15 14.65,19.03C14.93,18.9 15.18,18.73 15.38,18.5C15.58,18.28 15.73,18.03 15.83,17.75C15.93,17.48 16,17.18 16,16.88C16,16.38 15.85,15.91 15.55,15.5C15.25,15.09 14.88,14.75 14.43,14.5C14,14.25 14.34,14.11 14.63,13.96C14.91,13.81 15.14,13.68 15.3,13.58C15.46,13.48 15.58,13.38 15.65,13.3C15.73,13.23 15.78,13.16 15.83,13.1C16.03,12.85 16.23,12.63 16.43,12.45C16.63,12.28 16.82,12.13 17,12C17.18,11.88 17.33,11.78 17.45,11.7C17.58,11.63 17.68,11.58 17.75,11.55C17.83,11.53 17.88,11.5 17.9,11.5C18.1,11.5 18.28,11.55 18.43,11.65C18.58,11.75 18.7,11.88 18.78,12.03C18.85,12.18 18.88,12.33 18.88,12.48C18.88,12.63 18.85,12.78 18.8,12.9C18.75,13.03 18.68,13.15 18.6,13.25C18.53,13.35 18.45,13.45 18.38,13.53C18.3,13.6 18.23,13.68 18.18,13.73C17.98,13.93 17.75,14.11 17.5,14.28C17.25,14.45 17,14.61 16.75,14.75L16.75,13.96Z"/></svg>
+    </a>
+    
+    <div id="downloadModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+        <div id="modalContent" class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 sm:p-8 relative">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"><i data-lucide="x" class="h-7 w-7"></i></button>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Fill and Connect With Us</h2>
+            <form id="downloadForm"><div class="space-y-5"><div><label for="name" class="text-sm font-medium text-gray-700">Name</label><input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none transition form-input-focus"></div><div><label for="email" class="text-sm font-medium text-gray-700">Email</label><input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none transition form-input-focus"></div><div><label for="phone" class="text-sm font-medium text-gray-700">Phone</label><input type="tel" id="phone" name="phone" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none transition form-input-focus"></div><div><label for="language" class="text-sm font-medium text-gray-700">Select Language</label><select id="language" name="language" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none transition appearance-none form-input-focus"><option value="" disabled selected>-- Select a Language --</option><option value="english">English</option><option value="hindi">Hindi</option><option value="spanish">Spanish</option><option value="french">French</option></select></div><div><label for="state" class="text-sm font-medium text-gray-700">Select State</label><select id="state" name="state" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none transition appearance-none form-input-focus"><option value="" disabled selected>-- Select a State --</option><option value="maharashtra">Maharashtra</option><option value="delhi">Delhi</option><option value="karnataka">Karnataka</option><option value="california">California</option><option value="newyork">New York</option></select></div></div><div class="mt-8"><button type="submit" class="w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg btn-gradient text-lg">Submit</button></div></form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainPage = document.getElementById('mainPage');
+            const thankYouPage = document.getElementById('thankYouPage');
+            const howItWorksPage = document.getElementById('howItWorksPage');
+            
+            const backToHomeBtn = document.getElementById('backToHomeBtn');
+            const pulseAiBtn = document.getElementById('pulseAiBtn');
+            const backToStoryBtn = document.getElementById('backToStoryBtn');
+            
+            const downloadModal = document.getElementById('downloadModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const openModalBtns = [
+                document.getElementById('downloadNowBtn'),
+                document.getElementById('getStartedBtn'),
+                document.getElementById('downloadNowBtnMobile')
+            ];
+
+            const generateAnalysisBtn = document.getElementById('generateAnalysisBtn');
+            const marketInput = document.getElementById('marketInput');
+            const analysisResult = document.getElementById('analysisResult');
+            
+            const showPage = (pageToShow) => {
+                [mainPage, thankYouPage, howItWorksPage].forEach(page => {
+                    page.style.display = 'none';
+                });
+                pageToShow.style.display = 'block';
+                window.scrollTo(0, 0);
+            };
+
+            const openModal = () => {
+                downloadModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                modalContent.classList.add('modal-enter');
+                modalContent.classList.remove('modal-leave');
+            };
+            const closeModal = () => {
+                 modalContent.classList.add('modal-leave');
+                 setTimeout(() => {
+                    downloadModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                 }, 200);
+            };
+            openModalBtns.forEach(btn => btn && btn.addEventListener('click', openModal));
+            closeModalBtn.addEventListener('click', closeModal);
+            downloadModal.addEventListener('click', (e) => e.target === downloadModal && closeModal());
+            
+            document.getElementById('downloadForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                closeModal();
+                setTimeout(() => {
+                    showPage(thankYouPage);
+                    animateCounters();
+                }, 300);
+            });
+
+            backToHomeBtn.addEventListener('click', () => showPage(mainPage));
+            pulseAiBtn.addEventListener('click', () => showPage(howItWorksPage));
+            backToStoryBtn.addEventListener('click', () => showPage(thankYouPage));
+
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            
+            const animateCounters = () => {
+                const counters = thankYouPage.querySelectorAll('[data-target]');
+                const speed = 200;
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText.replace(/[^0-9.]/g, '');
+                        const inc = target / speed;
+                        if (count < target) {
+                            let nextCount = (target % 1 !== 0) ? Math.ceil((count + inc) * 10) / 10 : Math.ceil(count + inc);
+                            if (nextCount > target) nextCount = target;
+                            counter.innerText = nextCount.toLocaleString();
+                            setTimeout(updateCount, 15);
+                        } else {
+                            counter.innerText = target.toLocaleString();
+                        }
+                    };
+                    counter.innerText = '0';
+                    updateCount();
+                });
+            };
+            
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    header.classList.add('shadow-md');
+                } else {
+                    header.classList.remove('shadow-md');
+                }
+            });
+
+            // --- Gemini API Function ---
+            const generateAiAnalysis = async () => {
+                const market = marketInput.value;
+                if (!market.trim()) {
+                    analysisResult.innerText = "Please ek market ya stock enter karein.";
+                    return;
+                }
+
+                analysisResult.innerHTML = `<div class="flex justify-center items-center"><div class="loader"></div><p class="ml-4">Generate ho raha hai...</p></div>`;
+                generateAnalysisBtn.disabled = true;
+
+                const userQuery = `Provide a brief market analysis and one potential trading strategy idea for ${market}. Keep it concise and for informational purposes only. Do not give financial advice.`;
+                const systemPrompt = "Act as a professional financial analyst providing brief, accessible insights.";
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userQuery }] }],
+                            tools: [{ "google_search": {} }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        analysisResult.innerText = candidate.content.parts[0].text;
+                    } else {
+                        analysisResult.innerText = "Analysis generate karne mein problem aa rahi hai. Please baad mein try karein.";
+                    }
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    analysisResult.innerText = "Connection error. Please apni network settings check karein aur dobara try karein.";
+                } finally {
+                    generateAnalysisBtn.disabled = false;
+                }
+            };
+            
+            generateAnalysisBtn.addEventListener('click', generateAiAnalysis);
+        });
+    </script>
+</body>
+</html>
+
